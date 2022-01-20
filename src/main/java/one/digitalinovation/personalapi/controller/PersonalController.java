@@ -2,7 +2,6 @@ package one.digitalinovation.personalapi.controller;
 
 import one.digitalinovation.personalapi.dto.request.PersonDTO;
 import one.digitalinovation.personalapi.dto.response.MessageResponseDTO;
-import one.digitalinovation.personalapi.entity.Person;
 import one.digitalinovation.personalapi.exception.PersonNotFoundException;
 import one.digitalinovation.personalapi.service.PersonalService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,12 +31,20 @@ public class PersonalController {
     }
 
     @GetMapping
-    public List<PersonDTO> listAll(){
+    public List<PersonDTO> listAll() {
         return personalService.listAll();
     }
 
     @GetMapping("/{id}")
     public PersonDTO findById(@PathVariable Long id) throws PersonNotFoundException {
         return personalService.findById(id);
+    }
+
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteById(@PathVariable  Long id) throws PersonNotFoundException {
+
+        personalService.deleteById(id);
     }
 }
